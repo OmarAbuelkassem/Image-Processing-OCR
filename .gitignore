@@ -1,0 +1,19 @@
+# Prerequisites
+node_modules/
+**/node_modules/
+
+# Environment Variables (CRITICAL for Security)
+.env
+**/.env
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Docker
+.dockerignore
+
+# OS specific files
+.DS_Store
+Thumbs.db
