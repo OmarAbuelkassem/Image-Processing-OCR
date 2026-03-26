@@ -32,7 +32,7 @@ export default function Layout({ title, sidebar, children }) {
       {/* ZONE 3: FOOTER */}
       <footer className="footer footer-center p-6 bg-base-100 text-base-content border-t border-base-300">
         <aside>
-          <p>Full-Stack Portfolio Project — 2026</p>
+          <p>Copyright ©Full-Stack Project #1</p>
         </aside>
       </footer>
     </div>
