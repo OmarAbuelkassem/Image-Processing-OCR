@@ -5,7 +5,7 @@
 ![Node](https://img.shields.io/badge/Node-Express_5-green)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue)
 
-A high-performance, containerized Full-Stack application designed for real-time text extraction from images. This project demonstrates a complete **CI/CD pipeline**, decoupled architecture, and industrial-grade security practices.
+A high-performance, containerized Full-Stack application designed for real-time text extraction from images. This project features an automated CI/CD Pipeline (Continuous Integration & Delivery) that builds, optimizes, and pushes production-ready images to Docker Hub.
 
 ---
 
