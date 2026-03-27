@@ -10,7 +10,7 @@ app.set("trust proxy", 1); // Tell Express to trust the proxy headers ( for verc
 
 // Speicify a list of allowed origins & config cors to allow them (prevent any dangerous requests)
 const allowedOrigins = [
-  "http://localhost:3000",
+  "http://localhost:7860",
   "http://localhost:5173",
   process.env.CLIENT_URL,
 ].filter(Boolean);

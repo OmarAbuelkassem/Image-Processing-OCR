@@ -8,7 +8,8 @@ function App() {
 
   return (
     <Layout
-      title="AI OCR Scanner"
+      title="
+OCR-Intelligence-api"
       sidebar={
         <OCRControls
           file={Ocr.file}

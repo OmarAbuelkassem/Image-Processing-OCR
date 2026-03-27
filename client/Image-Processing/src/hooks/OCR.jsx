@@ -54,7 +54,7 @@ export const OCR = () => {
       container.append("image", fileToUpload);
 
       const response = await axios.post(
-        "http://localhost:3000/image/upload",
+        "http://localhost:7860/image/upload",
         container,
         {
           headers: { "Content-Type": "multipart/form-data" },
