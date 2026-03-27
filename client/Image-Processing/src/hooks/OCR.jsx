@@ -9,6 +9,7 @@ export const OCR = () => {
   const [error, setError] = useState(null);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:7860";
 
   const upHandle = async () => {
     if (!file) return alert("Please Upload a file.");
@@ -53,13 +54,9 @@ export const OCR = () => {
       const container = new FormData();
       container.append("image", fileToUpload);
 
-      const response = await axios.post(
-        "http://localhost:7860/image/upload",
-        container,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        },
-      );
+      const response = await axios.post(`${API_URL}/image/upload`, container, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       clearInterval(progressTimer);
       setProgress(100);
       setStatus("Success!");
