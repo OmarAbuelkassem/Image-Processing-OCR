@@ -25,6 +25,8 @@ jobs:
           # This makes Dockerfile and package.json sit at the root for HF
           cp -r server/* deploy_dir/
 
+          # DELETE THE BINARY FILE HERE so the push succeeds
+          rm deploy_dir/eng.traineddata
           # 3. Move into the folder and set up a fresh git repo
           cd deploy_dir
           git init -b main
