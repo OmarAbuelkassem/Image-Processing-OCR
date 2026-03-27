@@ -9,28 +9,26 @@ app.set("trust proxy", 1); // Tell Express to trust the proxy headers ( for verc
 // Middleware
 
 // Speicify a list of allowed origins & config cors to allow them (prevent any dangerous requests)
+// 1. Ensure your allowedOrigins are extremely clean
 const allowedOrigins = [
   "http://localhost:7860",
   "http://localhost:5173",
-  process.env.CLIENT_URL,
+  process.env.CLIENT_URL, // Make sure this is "https://your-app.vercel.app" (NO trailing /)
 ].filter(Boolean);
 
-// .filter (Boolean) removes any undefined/null values that could come in the array by accident
+// 2. Use the "Array" method instead of the "Function" method
+// This is much more reliable when headers are being proxied
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // incoming request from a nonbrowser like a terminal
-
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Added OPTIONS for preflight
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], // Explicitly allow these
   }),
 );
+
+// 3. Force handle the OPTIONS "Preflight" request
+app.options("*", cors());
 
 // Security Headers to hide that you're using Express
 // and prevents common attacks like Clickjacking.
