@@ -1,0 +1,39 @@
+name: Sync to Hugging Face hub
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  sync-to-hub:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Push Server Folder to Hugging Face
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # 1. Create a temporary deployment directory
+          mkdir deploy_dir
+
+          # 2. Copy only the contents of your server folder into it
+          # This makes Dockerfile and package.json sit at the root for HF
+          cp -r server/* deploy_dir/
+
+          # 3. Move into the folder and set up a fresh git repo
+          cd deploy_dir
+          git init
+          git config user.name "GitHub Action"
+          git config user.email "action@github.com"
+
+          # 4. Add files and push to the Space
+          git add .
+          git commit -m "Deploying backend from /server folder"
+
+          # Use your specific username and space name
+          git push --force https://LogicalConclusion:$HF_TOKEN@huggingface.co/spaces/LogicalConclusion/ocr-intelligence-api main
