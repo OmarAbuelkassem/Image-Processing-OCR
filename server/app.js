@@ -28,7 +28,8 @@ app.use(
 );
 
 // 3. Force handle the OPTIONS "Preflight" request
-app.options(".*", cors());
+// This tells Express: "Match everything and call the parameter 'any'"
+app.options("/:any*", cors());
 
 // Security Headers to hide that you're using Express
 // and prevents common attacks like Clickjacking.
