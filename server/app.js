@@ -28,7 +28,7 @@ app.use(
 );
 
 // 3. Force handle the OPTIONS "Preflight" request
-app.options("*", cors());
+app.options(".*", cors());
 
 // Security Headers to hide that you're using Express
 // and prevents common attacks like Clickjacking.
