@@ -27,7 +27,7 @@ jobs:
 
           # 3. Move into the folder and set up a fresh git repo
           cd deploy_dir
-          git init
+          git init -b main
           git config user.name "GitHub Action"
           git config user.email "action@github.com"
 
