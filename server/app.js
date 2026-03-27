@@ -16,21 +16,18 @@ const allowedOrigins = [
   process.env.CLIENT_URL, // Make sure this is "https://your-app.vercel.app" (NO trailing /)
 ].filter(Boolean);
 
-// 2. Use the "Array" method instead of the "Function" method
-// This is much more reliable when headers are being proxied
-app.use(
-  cors({
-    origin: allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Added OPTIONS for preflight
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"], // Explicitly allow these
-  }),
-);
-
-// 3. Force handle the OPTIONS "Preflight" request
-// This tells Express: "Match everything and call the parameter 'any'"
-app.options("/:any*", cors());
-
+// This applies CORS to EVERY 'OPTIONS' request regardless of the path
+// It doesn't use the router, so it won't trigger the PathError
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return cors({
+      origin: allowedOrigins,
+      credentials: true,
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    })(req, res, next);
+  }
+  next();
+});
 // Security Headers to hide that you're using Express
 // and prevents common attacks like Clickjacking.
 app.use(helmet());
